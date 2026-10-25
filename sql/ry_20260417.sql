@@ -1,3 +1,6 @@
+-- Import this UTF-8 script with an explicitly UTF-8 connection.
+SET NAMES utf8mb4;
+
 -- ----------------------------
 -- 1、部门表
 -- ----------------------------

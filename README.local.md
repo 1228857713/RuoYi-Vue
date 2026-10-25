@@ -59,3 +59,7 @@ java -Dlogback.configurationFile="${RUOYI_LOGBACK_CONFIG}" \
 分别记录构建结果与运行结果：确认数据库和 Redis 连接，验证当前配置下的验证码、登录、菜单、权限拦截及一个列表查询。需要写入时仅用可清理的开发数据。测试未执行、被跳过或数量为零时如实注明。
 
 Spring Boot 2.x 已结束上游开源支持，本模板的 JDK 8 约束不代表已解决依赖长期维护风险。面向生产发布前须单独评估补丁、支持和升级方案。[Spring 官方说明](https://spring.io/blog/2023/11/23/spring-boot-2-7-18-available-now)
+
+## UTF-8 初始化
+
+仓库SQL使用UTF-8；导入客户端必须显式使用 `mysql --default-character-set=utf8mb4`，不能只设置服务端或表字符集。初始化脚本开头也声明 `SET NAMES utf8mb4`，避免默认latin1客户端误解码中文。初始化后核验 `sys_menu` 的“系统管理”和字典、部门等种子中文内容；HTTP200和表数正确不能替代文本验收。禁止向已有库重复导入含DROP TABLE的初始化脚本；既有乱码应备份并定向修复。
